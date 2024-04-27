@@ -3,12 +3,12 @@
 # Return a list of the types of tokens
 # An automaton is defined by M(Q,SIGMA,DELTA,F,q_0)
 # 2024-04-16
-defmodule DFA do
+defmodule Parsing.TokenList do
   # An aoutoamat argument is expressde as
   # {delta,accept, q0}
   def arithmetic_lexer(string) do
     automata =
-      {&DFA.delta_int_arithmetic/2, [:int, :float, :var, :exp, :par_close, :space],
+      {&Parsing.TokenList.delta_int_arithmetic/2, [:int, :float, :var, :exp, :par_close, :space],
        :start}
 
     string
@@ -54,7 +54,6 @@ defmodule DFA do
     case state do
       :start ->
         cond do
-          # is_operator(char) -> [:sign, false, false]
           is_digit(char) -> [:int, false, false]
           is_posorneg(char) -> [:sign, false, false]
           is_var(char) -> [:var, false, false]
