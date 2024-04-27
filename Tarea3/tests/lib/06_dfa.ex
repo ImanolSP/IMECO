@@ -54,7 +54,6 @@ defmodule Parsing.TokenList do
     case state do
       :start ->
         cond do
-
           is_digit(char) -> [:int, false, false]
           is_posorneg(char) -> [:sign, false, false]
           is_var(char) -> [:var, false, false]
@@ -142,7 +141,7 @@ defmodule Parsing.TokenList do
           is_posorneg(char) -> [:sign, :par_open, char]
           is_digit(char) -> [:int, :par_open, char]
           is_space(char) -> [:space, :par_open, nil]
-          is_var(char) ->[:var,:par_open,char]
+          is_var(char) -> [:var, :par_open, char]
           :fail -> [:fail, false, false]
         end
 
@@ -168,7 +167,8 @@ defmodule Parsing.TokenList do
         [:fail, false, false]
     end
   end
-#####HELPER FUNC START
+
+  ##### HELPER FUNC START
   def is_digit(char) do
     "0123456789"
     |> String.graphemes()

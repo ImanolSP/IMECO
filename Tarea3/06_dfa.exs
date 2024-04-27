@@ -142,7 +142,7 @@ defmodule Parsing.TokenList do
           is_posorneg(char) -> [:sign, :par_open, char]
           is_digit(char) -> [:int, :par_open, char]
           is_space(char) -> [:space, :par_open, nil]
-          is_var(char) ->[:var,:par_open,char]
+          is_var(char) -> [:var, :par_open, char]
           :fail -> [:fail, false, false]
         end
 
