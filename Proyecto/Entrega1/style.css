@@ -1,0 +1,17 @@
+.keyword { color: rgb(246, 163, 86); }
+    .function { color: purple; }
+    .symbol { color: rgb(255, 0, 242); }
+    .number { color: orange; }
+    .string { color: green; }
+    .module {color: aquamarine;}
+    .comment { color: gray; }
+    .operator { color: red; }
+    .unknown { color: pink; }
+    .variable {color:rgb(171, 205, 58);}
+    .atom{color:rgba(173, 73, 154, 0.901)}
+    .number{color:black}
+    .string{color:deeppink}
+    .regex{color:darksalmon}
+    pre, .space {
+        white-space: pre-wrap; 
+      }
