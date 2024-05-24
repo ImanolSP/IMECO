@@ -142,13 +142,28 @@ defmodule Lexer do
 
     if String.length(line) > 0  do
       IO.inspect(line)
-      case Regex.run(~r/^(\->|\-\-|\+\+|&&|\|\||\*|\+|\-|\/|>|<|<>|\(|\)|\=|\|)/, line) do
-        nil -> search_symbols(line,out_fd)
+      case Regex.run(~r/^(\->|\|>|\-\-|\+\+|&&|!|\|\||\*|\+|\-|\/|>|<|<>|\(|\)|\=|\|)/, line) do
+        nil -> search_regex(line,out_fd)
         [found|_rest] ->
             IO.inspect(found)
           len = String.length(found)
           {first_part, second_part} = String.split_at(line,len)
           insert_into_html(found, "operator", out_fd)
+          search_comments(second_part, out_fd)
+      end
+    end
+  end
+
+  defp search_regex(line,out_fd) do
+    if String.length(line) > 0  do
+      IO.inspect(line)
+      case Regex.run(~r/^(\~r.*\/)/, line) do
+        nil -> search_symbols(line,out_fd)
+        [found|_rest] ->
+            IO.inspect(found)
+          len = String.length(found)
+          {first_part, second_part} = String.split_at(line,len)
+          insert_into_html(found, "regex", out_fd)
           search_comments(second_part, out_fd)
       end
     end

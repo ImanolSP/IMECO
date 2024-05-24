@@ -11,7 +11,7 @@
     .atom{color:rgba(173, 73, 154, 0.901)}
     .number{color:black}
     .string{color:deeppink}
-    .regex{color:darksalmon}
+    .regex{color:rgb(233, 122, 168)}
     pre, .space {
         white-space: pre-wrap; 
       }
