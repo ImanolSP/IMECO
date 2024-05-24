@@ -6,7 +6,7 @@ The Elixir module `Lexer` is designed to read a Elixir file, highlight syntax el
 
 ## Algorithm Efficiency
 
-The main algorithm involves streaming the file line by line and recursively processing each line through a series of regex matches that identify different types of tokens. Each line is processed independently, and regex operations are performed until the line is exhausted of recognizable tokens.
+The main algorithm involves streaming the file line by line and recursively processing each line through a series of regex matches that identify different types of tokens. Each line is processed independently, and regex operations are performed until the line is empty of possible tokens.
 
 **The RegEx used for each token were:**
 
@@ -26,7 +26,7 @@ The main algorithm involves streaming the file line by line and recursively proc
 
 **Atoms**: ^:\b\w+\b
 
-**Operators**: ^( \-> | \-\- | \+\+ | &&| \ | \ | | \* | \+ | \- | \/ | > | < | <> | \( | \) | \= | \ |)
+**Operators**: ^( \-> | \|> | ! |\-\- | \+\+ | &&| \ | \ | | \* | \+ | \- | \/ | > | < | <> | \( | \) | \= | \ |)
 
 **Symbols**:^[ {} [\] () , . :]
 
@@ -37,18 +37,18 @@ The main algorithm involves streaming the file line by line and recursively proc
 
 ### Complexity Analysis
 
-- **Time Complexity:** The algorithm has a linear time complexity relative to the number of lines, \( O(n) \), where \( n \) is the number of lines in the file. However, for each line, multiple regex operations (potentially up to the number of different token types) can be executed. This makes the effective complexity \( O(m * k) \), where \( m \) is the average number of tokens per line and \( k \) is the average cost of a regex operation.
+- **Time Complexity:** The algorithm has a linear time complexity relative to the number of lines, \( O(n) \), where \( n \) is the number of lines in the file. However, for each line, multiple regex operations (This end up being the number of different token types) can be executed. This makes the final complexity \( O(m * k) \), where \( m \) is the average number of tokens per line and \( k \) is the average cost of a regex operation.
 
 - **Space Complexity:** The space complexity is primarily determined by the output file size, which grows linearly with the number of tokens identified, \( O(t) \), where \( t \) is the total number of tokens across all lines.
 
 ## Ethical Considerations
 
-The development of syntax highlighting tools like the `Lexer` module can greatly enhance readability and accessibility of code, promoting inclusivity in programming. However, there are several ethical considerations:
+The development of syntax highlighting tools like the `Lexer` module can improve readability and accessibility of code. However, there are several ethical considerations:
 
-- **Bias and Fairness:** Tools should equally support various programming languages and not favor one over another, avoiding bias in development ecosystems.
-- **Accessibility:** Ensuring that the output formats are accessible to individuals with disabilities, such as color blindness, is crucial.
+- **Accessibility:** Ensuring that the output formats are accessible to individuals with disabilities, such as color blindness, is crucial.Although my lexer isn't as sophisticated as one may think, the .css file is attached in this same repository, so that anyone that has the files, can choose the colors they want for each token
+
 - **Data Security:** When processing files, it is important to ensure that sensitive data is not inadvertently exposed or misused.
 
 ## Conclusion
 
-The Lexer module effectively demonstrates the application of Elixir for syntax highlighting, leveraging regex for tokenization. While efficient for small to medium-sized files, scalability concerns might arise with very large files due to the cumulative cost of regex operations. Ethically, the tool promotes a more inclusive and accessible programming environment, though it also necessitates careful consideration of bias and data security. Future improvements could focus on optimizing regex efficiency and enhancing support for a wider range of programming languages.
+The Lexer module demonstrates the application of Elixir for syntax highlighting, and the use of regex to find the different tokens. While efficient for small to medium-sized files, scalability concerns might arise with very large files due to the cost of regex operations. Ethically, the tool promotes a more inclusive and accessible programming environment, though it also needs careful consideration of data security. Future improvements could focus on optimizing regex efficiency and enhancing support for a wider range of programming languages.

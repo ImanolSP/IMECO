@@ -210,3 +210,6 @@ defmodule Lexer do
     IO.binwrite(out_fd, content)
   end
 end
+
+[infile,outfile]=System.argv()
+Lexer.read_file(infile,outfile)
