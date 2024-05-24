@@ -159,7 +159,7 @@ defmodule Lexer do
     if String.length(line) > 0  do
       IO.inspect(line)
       case Regex.run(~r/(\@\w+)/, line) do
-        nil -> search_symbols(line,out_fd)
+        nil -> search_regex(line,out_fd)
         [found|_rest] ->
             IO.inspect(found)
           len = String.length(found)
