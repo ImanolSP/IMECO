@@ -2,6 +2,7 @@
 ## 21/05/24
 
 defmodule Lexer do
+
   def read_file(file, output) do
     # Open the output file for writing and create if it doesn't exist
     {:ok, out_fd} = File.open(output, [:write, :binary])
@@ -50,7 +51,7 @@ defmodule Lexer do
 
   defp search_keywords(line, out_fd) do
     if String.length(line) > 0  do
-      case Regex.run(~r/^\b(def|defmodule|fn|defp|do|nil|end|case|cond|if|else|do|when|after|in|catch|rescue|true|false)\b/, line) do
+      case Regex.run(~r/^\b(def|defmodule|fn|defp|do|nil|end|case|cond|if|else|do|when|after|in|catch|rescue|true|false|use|alias|test|assert)\b/, line) do
         nil -> search_modules(line,out_fd) ##no encontro nada
         [found|_rest] ->
           IO.inspect(line)
@@ -143,7 +144,7 @@ defmodule Lexer do
     if String.length(line) > 0  do
       IO.inspect(line)
       case Regex.run(~r/^(\->|\|>|\-\-|\+\+|&&|!|\|\||\*|\+|\-|\/|>|<|<>|\(|\)|\=|\|)/, line) do
-        nil -> search_regex(line,out_fd)
+        nil -> search_moduleVariables(line,out_fd)
         [found|_rest] ->
             IO.inspect(found)
           len = String.length(found)
@@ -153,7 +154,21 @@ defmodule Lexer do
       end
     end
   end
+  defp search_moduleVariables(line,out_fd) do
 
+    if String.length(line) > 0  do
+      IO.inspect(line)
+      case Regex.run(~r/(\@\w+)/, line) do
+        nil -> search_symbols(line,out_fd)
+        [found|_rest] ->
+            IO.inspect(found)
+          len = String.length(found)
+          {first_part, second_part} = String.split_at(line,len)
+          insert_into_html(found, "ModuleVar", out_fd)
+          search_comments(second_part, out_fd)
+      end
+    end
+  end
   defp search_regex(line,out_fd) do
     if String.length(line) > 0  do
       IO.inspect(line)

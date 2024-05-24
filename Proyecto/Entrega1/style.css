@@ -12,6 +12,7 @@
     .number{color:black}
     .string{color:deeppink}
     .regex{color:rgb(233, 122, 168)}
+    .ModuleVar{color:rgb(147, 131, 251)}
     pre, .space {
         white-space: pre-wrap; 
       }
