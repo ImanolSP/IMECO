@@ -1,5 +1,5 @@
 # Lexer Implementation Report
-
+Imanol Santisteban Piñeirua
 ## Solution Overview
 
 The Elixir module `Lexer` is designed to read a Elixir file, highlight syntax elements using HTML tags, and output the results in an HTML file. The solution processes the file line by line, identifying and styling tokens such as keywords, comments, functions, and more, based on predefined regular expressions.
