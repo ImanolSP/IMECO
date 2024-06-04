@@ -49,12 +49,12 @@ defmodule Lexer2 do
   end
 # Handles the detection and highlighting of operatoes.
   defp search_operators(line, out_fd) do
-    search(line, out_fd, ~r/^(\->|\|>|\-\-|\+\+|&&|!|\|\||\*|\+|\-|\/\/|>|<|<>|\\|\(|\)|\=|\|)/, "operator", &search_regex/2)
+    search(line, out_fd, ~r/^(\->|\|>|\-\-|\+\+|&&|!|\|\||\*|\+|\-|\/\/|>|<|<>|\\|\(|\)|\=|\|)/, "operator", &search_moduleVariables/2)
   end
 # Handles the detection and highlighting of moduleVars.
-  ##defp search_moduleVariables(line, out_fd) do
-    ##search(line, out_fd, ~r/(\@\w+)/, "ModuleVar", &search_regex/2)
-  ##end
+  defp search_moduleVariables(line, out_fd) do
+    search(line, out_fd, ~r/(\@\w+)/, "ModuleVar", &search_regex/2)
+  end
 # Handles the detection and highlighting of regex.
   defp search_regex(line, out_fd) do
     search(line, out_fd, ~r/^(\~r.*\/)/, "regex", &search_symbols/2)

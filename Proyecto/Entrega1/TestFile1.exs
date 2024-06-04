@@ -2,7 +2,7 @@
 # 08/03/2024
 
 defmodule Hw.Ariel1 do
-
+@variable 3
   def invert(list), do: do_invert(list,[])
   defp do_invert([],res), do: res
   defp do_invert([head|tail],res), do: do_invert(tail,[head|res])
