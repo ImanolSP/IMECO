@@ -37,7 +37,12 @@ The main algorithm involves streaming the file line by line and recursively proc
 
 ### Complexity Analysis
 
-- **Time Complexity:** The algorithm has a linear time complexity relative to the number of lines, \( O(n) \), where \( n \) is the number of lines in the file. However, for each line, multiple regex operations (This end up being the number of different token types) can be executed. This makes the final complexity \( O(m * k) \), where \( m \) is the average number of tokens per line and \( k \) is the average cost of a regex operation.
+- **Time Complexity:** 
+
+While this process is efficient for most cases, the time complexity int the worst case scenario can reach O(n^2). This arises from the nested loops that are found within the code.
+
+Imagine a loop iterating through each line of the file (n lines). Inside that loop, another loop attempts to match the line's beginning against various patterns for different token types (comments, keywords, etc.). In the worst case, none of these initial patterns might match, leading to further recursive calls that essentially re-analyze the entire remaining line. This creates a nested loop structure, where the number of iterations within the inner loop depends on the input content. With a large number of lines (n) and a high chance of not finding any initial matches, the complexity can now become O(n^2).It's important to denote that this would be the worst case scenario,if the matches are found quickly, the code is fairly optimal.
+
 
 - **Space Complexity:** The space complexity is primarily determined by the output file size, which grows linearly with the number of tokens identified, \( O(t) \), where \( t \) is the total number of tokens across all lines.
 

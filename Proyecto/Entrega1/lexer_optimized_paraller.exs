@@ -1,10 +1,22 @@
 defmodule Lexer2 do
 # Reads a file and writes syntax-highlighted HTML output.
-  def read_file(file,output) do
+def parallel(path)do
+  files = File.ls!(path)
+  tasks =
+    Enum.map(files, fn file ->
+      full_path = Path.join(path, file)
+      Task.async(fn -> read_file(full_path) end)
+    end)
+  Enum.map(tasks, &Task.await(&1))
+end
+
+
+  def read_file(file) do
+    output = file <> ".html"
     # Opens the output file for writing in binary mode.
     {:ok, out_fd} = File.open(output, [:write, :binary])
     # HTML header setup with a reference to a CSS stylesheet.
-    header = "<!DOCTYPE html>\n<html>\n<head>\n<title>File Content</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div id=\"code-content\">\n"
+    header = "<!DOCTYPE html>\n<html>\n<head>\n<title>File Content</title>\n<link rel=\"stylesheet\" href=\"./Entrega1/style.css\">\n</head>\n<body>\n<div id=\"code-content\">\n"
     # Write the HTML header to the output file.
     IO.binwrite(out_fd, header)
 # Stream the input file and process each line for syntax highlighting.
@@ -49,7 +61,7 @@ defmodule Lexer2 do
   end
 # Handles the detection and highlighting of operatoes.
   defp search_operators(line, out_fd) do
-    search(line, out_fd, ~r/^(\->|\|>|\-\-|\+\+|&&|!|\|\||\*|\+|\-|\/\/|\/|>|<|<>|\\|\(|\)|\=|\|)/, "operator", &search_moduleVariables/2)
+    search(line, out_fd, ~r/^(\->|\|>|\-\-|\+\+|&&|!|\|\||\*|\+|\-|\/\/|>|<|<>|\\|\(|\)|\=|\|)/, "operator", &search_moduleVariables/2)
   end
 # Handles the detection and highlighting of moduleVars.
   defp search_moduleVariables(line, out_fd) do
@@ -95,12 +107,9 @@ defmodule Lexer2 do
     end
   end
   end
-#Function to insert each elemt with the corresponding tag into the output file
+
   defp insert_into_html(match, element, out_fd) do
     content = "<span class=\"#{element}\">#{match}</span>\n"
     IO.binwrite(out_fd, content)
   end
 end
-#Usage of the code from terminal without entering elixir interactive shell (iex)
-[in_file,out_file]=System.argv()
-Lexer2.read_file(in_file,out_file)
