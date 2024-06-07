@@ -16,7 +16,7 @@ end
     # Opens the output file for writing in binary mode.
     {:ok, out_fd} = File.open(output, [:write, :binary])
     # HTML header setup with a reference to a CSS stylesheet.
-    header = "<!DOCTYPE html>\n<html>\n<head>\n<title>File Content</title>\n<link rel=\"stylesheet\" href=\"./Entrega1/style.css\">\n</head>\n<body>\n<div id=\"code-content\">\n"
+    header = "<!DOCTYPE html>\n<html>\n<head>\n<title>File Content</title>\n<link rel=\"stylesheet\" href=\"../style.css\">\n</head>\n<body>\n<div id=\"code-content\">\n"
     # Write the HTML header to the output file.
     IO.binwrite(out_fd, header)
 # Stream the input file and process each line for syntax highlighting.
@@ -86,7 +86,7 @@ end
 
   defp search(line, out_fd, regex, token_type, continuation_function) do
 # Debugging: print the current token type to the console
-    IO.inspect(token_type)
+
     # Check if the continuation function is not an :ok atom
     if continuation_function != :ok do
     if String.length(line) > 0 do
@@ -112,4 +112,11 @@ end
     content = "<span class=\"#{element}\">#{match}</span>\n"
     IO.binwrite(out_fd, content)
   end
+
+  def measure_time(path)do
+    {time, result} = :timer.tc(Lexer2, :parallel, [path])
+    IO.puts("Execution time: #{time / 1_000_000} seconds")
+  end
 end
+[path]=System.argv()
+Lexer2.measure_time(path)

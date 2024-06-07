@@ -1,13 +1,26 @@
 defmodule Lexer2 do
+
+  def file_input(path)do
+    files = File.ls!(path)
+
+    Enum.map(files, fn file ->
+
+      full_path = Path.join(path, file)
+      read_file(full_path)
+    end)
+
+  end
 # Reads a file and writes syntax-highlighted HTML output.
-  def read_file(file,output) do
+  def read_file(file) do
+    output = file <>".html"
     # Opens the output file for writing in binary mode.
     {:ok, out_fd} = File.open(output, [:write, :binary])
     # HTML header setup with a reference to a CSS stylesheet.
-    header = "<!DOCTYPE html>\n<html>\n<head>\n<title>File Content</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n<div id=\"code-content\">\n"
+    header = "<!DOCTYPE html>\n<html>\n<head>\n<title>File Content</title>\n<link rel=\"stylesheet\" href=\"../style.css\">\n</head>\n<body>\n<div id=\"code-content\">\n"
     # Write the HTML header to the output file.
     IO.binwrite(out_fd, header)
 # Stream the input file and process each line for syntax highlighting.
+
     File.stream!(file)
     |> Enum.each(fn line -> search_comments(line, out_fd) end)
 # HTML footer setup.
@@ -74,7 +87,7 @@ defmodule Lexer2 do
 
   defp search(line, out_fd, regex, token_type, continuation_function) do
 # Debugging: print the current token type to the console
-    IO.inspect(token_type)
+
     # Check if the continuation function is not an :ok atom
     if continuation_function != :ok do
     if String.length(line) > 0 do
@@ -100,7 +113,12 @@ defmodule Lexer2 do
     content = "<span class=\"#{element}\">#{match}</span>\n"
     IO.binwrite(out_fd, content)
   end
+
+  def measure_time(path)do
+    {time, result} = :timer.tc(Lexer2, :file_input, [path])
+    IO.puts("Execution time: #{time / 1_000_000} seconds")
+  end
 end
 #Usage of the code from terminal without entering elixir interactive shell (iex)
-[in_file,out_file]=System.argv()
-Lexer2.read_file(in_file,out_file)
+[path]=System.argv()
+Lexer2.measure_time(path)
