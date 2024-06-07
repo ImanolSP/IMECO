@@ -80,7 +80,7 @@ end
     search(line, out_fd, ~r/^(['"])(?:(?=(\\?))\2.)*?\1/, "string", &search_end/2)
   end
   # Ends the recursive search.
-  defp search_end(line, out_fd), do: :ok
+  defp search_end(_line, _out_fd), do: :ok
 
     # End recursion
 
@@ -114,7 +114,7 @@ end
   end
 
   def measure_time(path)do
-    {time, result} = :timer.tc(Lexer2, :parallel, [path])
+    {time, _result} = :timer.tc(Lexer2, :parallel, [path])
     IO.puts("Execution time: #{time / 1_000_000} seconds")
   end
 end
