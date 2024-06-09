@@ -1,3 +1,6 @@
+#Imanol Santisteban Piñeirua
+#09/06/2024
+
 defmodule Hw.Primes do
   # Function to check if a number is prime
   defp is_prime(n) when n < 2 do

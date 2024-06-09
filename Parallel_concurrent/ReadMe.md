@@ -1,3 +1,7 @@
+// Imanol Santisteban
+
+//09/06/2024
+
 ### SPEED-UP 
 
 For this activity, we were tasked with creating a program that sums the prime nubers inside a specified range.This program has 2 approaches, one, is a sequential implementation, whilst the other is a Prallel one, each one calculates the same, the main difference is the speed of each one
