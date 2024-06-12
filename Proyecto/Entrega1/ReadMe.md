@@ -54,6 +54,8 @@ The development of syntax highlighting tools like the `Lexer` module can improve
 
 - **Data Security:** When processing files, it is important to ensure that sensitive data is not inadvertently exposed or misused.
 
+
+
 ## Conclusion
 
 The Lexer module demonstrates the application of Elixir for syntax highlighting, and the use of regex to find the different tokens. While efficient for small to medium-sized files, scalability concerns might arise with very large files due to the cost of regex operations. Ethically, the tool promotes a more inclusive and accessible programming environment, though it also needs careful consideration of data security. Future improvements could focus on optimizing regex efficiency and enhancing support for a wider range of programming languages.
