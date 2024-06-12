@@ -1,3 +1,5 @@
+#Imanol Santisteban
+#13/05/2024
 defmodule Lexer2 do
 # Reads a file and writes syntax-highlighted HTML output.
 def parallel(path)do

@@ -1,7 +1,6 @@
-// Imanol Santisteban
-
+# Parallel Lexer Implementation Report
+Imanol Santisteban Piñeirua
 //13/06/2024
-
 ### SPEED-UP 
 
 For this activity, we were tasked with creating a program that highlights text depending on the token.This program has 2 approaches, one, is a sequential implementation, whilst the other is a Prallel one, each one calculates the same, the main difference is the speed of each one

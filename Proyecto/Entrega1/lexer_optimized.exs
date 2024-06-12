@@ -1,3 +1,5 @@
+#Imanol Santisteban
+#24/05/2024
 defmodule Lexer2 do
 
   def file_input(path)do
