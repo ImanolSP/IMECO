@@ -37,6 +37,36 @@ The parallel implementation was done with 12 cores.
 
 The sequential version averaged an execution time of 1.45 seconds, while the parallel version averaged 1.05 seconds. This yielded a speedup of approximately 1.38, indicating that the parallel version is 38% faster than the sequential one. This demonstrates the advantage of parallel processing in decreasing the overall time needed to analyze and apply syntax highlighting across multiple files.
 
+## Algorithm Efficiency
+
+The main algorithm involves streaming the file line by line and recursively processing each line through a series of regex matches that identify different types of tokens. Each line is processed independently, and regex operations are performed until the line is empty of possible tokens.
+
+**The RegEx used for each token were:**
+
+**Comments:** ^#.*$
+
+**Space:** ^\s+
+
+**Keyword:** ^\b(def|defmodule|fn|defp|do|nil|end|case|cond|if|else|do|when|after|in|catch|rescue|true|false)\b
+
+**Modules**:^\b([A-Z]\w*)
+
+**Functions**: ^\b( \w+ )(?=\s*\()
+
+**Numbers**:^\d+
+
+**Variables**: ^\b\w+\b
+
+**Atoms**: ^:\b\w+\b
+
+**Operators**: ^( \-> | \|> | ! |\-\- | \+\+ | &&| \ | \ | | \* | \+ | \- | \/ | > | < | <> | \( | \) | \= | \ |)
+
+**Symbols**:^[ {} [\] () , . :]
+
+**Strings**: ^(['"])(?:(?=(\\?))\2.)*?\1
+
+**Regex**: ^(\~r.*\/)
+
 ### Complexity Analysis
 
 - **Time Complexity:** 
