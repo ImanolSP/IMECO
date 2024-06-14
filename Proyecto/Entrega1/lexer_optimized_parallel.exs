@@ -1,6 +1,6 @@
 #Imanol Santisteban
 #13/05/2024
-defmodule Lexer2 do
+defmodule LexerParallel do
 # Reads a file and writes syntax-highlighted HTML output.
 def parallel(path)do
   files = File.ls!(path)
@@ -116,9 +116,9 @@ end
   end
 
   def measure_time(path)do
-    {time, _result} = :timer.tc(Lexer2, :parallel, [path])
+    {time, _result} = :timer.tc(LexerParallel, :parallel, [path])
     IO.puts("Execution time: #{time / 1_000_000} seconds")
   end
 end
 [path]=System.argv()
-Lexer2.measure_time(path)
+LexerParallel.measure_time(path)
